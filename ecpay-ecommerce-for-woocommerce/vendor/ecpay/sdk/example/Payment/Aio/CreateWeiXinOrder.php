@@ -17,20 +17,13 @@ $input = [
     'MerchantTradeDate' => date('Y/m/d H:i:s'),
     'PaymentType'       => 'aio',
     'TotalAmount'       => 100,
-    'TradeDesc'         => UrlService::ecpayUrlEncode('交易描述範例'),
+    'TradeDesc'         => UrlService::ecpayUrlEncode('WeiXin交易描述範例'),
     'ItemName'          => '範例商品一批 100 TWD x 1',
-    'ReturnURL'         => 'https://www.ecpay.com.tw/example/receive',
-    'ChoosePayment'     => 'Credit',
+    'ChoosePayment'     => 'WeiXin',
     'EncryptType'       => 1,
 
-    // 定期定額專用參數
-    'PeriodAmount'      => 100,
-    'PeriodType'        => 'M',
-    'Frequency'         => 1,
-    'ExecTimes'         => 6,
-
     // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
-    'PeriodReturnURL'   => 'https://www.ecpay.com.tw/example/receive',
+    'ReturnURL'         => 'https://www.ecpay.com.tw/example/receive',
 ];
 $action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
