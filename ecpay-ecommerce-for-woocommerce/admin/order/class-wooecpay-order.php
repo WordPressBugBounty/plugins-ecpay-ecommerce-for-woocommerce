@@ -192,7 +192,7 @@ class Wooecpay_Order
 
                 // 判斷金流方式
                 $payment_method = $order->get_payment_method();
-                $ecpay_payment = ['Wooecpay_Gateway_Credit', 'Wooecpay_Gateway_Credit_Installment', 'Wooecpay_Gateway_Webatm', 'Wooecpay_Gateway_Atm', 'Wooecpay_Gateway_Cvs', 'Wooecpay_Gateway_Barcode', 'Wooecpay_Gateway_Applepay', 'Wooecpay_Gateway_Dca', 'Wooecpay_Gateway_Twqr', 'Wooecpay_Gateway_Weixin'];
+                $ecpay_payment = ['Wooecpay_Gateway_Credit', 'Wooecpay_Gateway_Credit_Installment', 'Wooecpay_Gateway_Webatm', 'Wooecpay_Gateway_Atm', 'Wooecpay_Gateway_Cvs', 'Wooecpay_Gateway_Barcode', 'Wooecpay_Gateway_Applepay', 'Wooecpay_Gateway_Dca', 'Wooecpay_Gateway_Twqr', 'Wooecpay_Gateway_Weixin', 'Wooecpay_Gateway_Jkopay', 'Wooecpay_Gateway_Ipass'];
 
                 if (in_array($payment_method, $ecpay_payment)) {
                     // 判斷是否超過指定時間或自訂的保留時間

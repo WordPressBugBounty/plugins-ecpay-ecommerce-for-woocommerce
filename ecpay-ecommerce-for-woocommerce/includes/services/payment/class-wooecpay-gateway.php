@@ -42,6 +42,8 @@ class Wooecpay_Gateway {
         include WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/ecpay-gateway-twqr.php';
         include WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/ecpay-gateway-bnpl.php';
         include WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/ecpay-gateway-weixin.php';
+        include WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/ecpay-gateway-jkopay.php';
+        include WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/ecpay-gateway-ipass.php';
 
         include WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/woocommerce-gateway-cod.php'; // 貨到付款相關程序
     }
@@ -58,6 +60,8 @@ class Wooecpay_Gateway {
         $methods[] = 'Wooecpay_Gateway_Twqr';
         $methods[] = 'Wooecpay_Gateway_Bnpl';
         $methods[] = 'Wooecpay_Gateway_Weixin';
+        $methods[] = 'Wooecpay_Gateway_Jkopay';
+        $methods[] = 'Wooecpay_Gateway_Ipass';
 
         return $methods;
     }
@@ -68,7 +72,7 @@ class Wooecpay_Gateway {
     public function load_payment_gateway_block() {
         if (class_exists('Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType')) {
             require_once WOOECPAY_PLUGIN_INCLUDE_DIR . '/services/payment/class-wooecpay-gateway-block.php';
-        
+
             add_action(
                 'woocommerce_blocks_payment_method_type_registration',
                 function( Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry ) {
@@ -83,6 +87,8 @@ class Wooecpay_Gateway {
                     $payment_method_registry->register(new Wooecpay_Gateway_Block('Wooecpay_Gateway_Twqr'));
                     $payment_method_registry->register(new Wooecpay_Gateway_Block('Wooecpay_Gateway_Bnpl'));
                     $payment_method_registry->register(new Wooecpay_Gateway_Block('Wooecpay_Gateway_Weixin'));
+                    $payment_method_registry->register(new Wooecpay_Gateway_Block('Wooecpay_Gateway_Jkopay'));
+                    $payment_method_registry->register(new Wooecpay_Gateway_Block('Wooecpay_Gateway_Ipass'));
                 }
             );
         }

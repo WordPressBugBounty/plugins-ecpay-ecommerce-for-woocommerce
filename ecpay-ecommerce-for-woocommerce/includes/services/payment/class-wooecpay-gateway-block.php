@@ -56,6 +56,12 @@ class Wooecpay_Gateway_Block extends AbstractPaymentMethodType {
             case 'Wooecpay_Gateway_Weixin':
                 $js_url = WOOECPAY_PLUGIN_URL . 'public/js/blocks/weixin-checkout.js';
                 break;
+            case 'Wooecpay_Gateway_Jkopay':
+                $js_url = WOOECPAY_PLUGIN_URL . 'public/js/blocks/jkopay-checkout.js';
+                break;
+            case 'Wooecpay_Gateway_Ipass':
+                $js_url = WOOECPAY_PLUGIN_URL . 'public/js/blocks/ipass-checkout.js';
+                break;
         }
 
         wp_register_script(

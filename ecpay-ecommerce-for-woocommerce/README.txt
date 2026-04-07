@@ -4,7 +4,7 @@ Tags: shop, cart, checkout, payment, ecpay
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 8.2
-Stable tag: 1.1.2510300
+Stable tag: 1.1.2603230
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,10 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 請來信詢問綠界技術服務信箱: techsupport@ecpay.com.tw
 
 == Changelog ==
+
+v1.1.2603230
+增加街口支付付款方式
+增加綠界iPASS MONEY付款方式
 
 v1.1.2510300
 增加無卡分期服務商欄位在後台訂單頁綠界金流區塊

@@ -128,7 +128,22 @@ class Wooecpay_Logistic {
                     strpos($chosen_shipping, 'Wooecpay_Logistic_Home') !== false
                 ) {
 
-                    $allow_payments = ['Wooecpay_Gateway_Credit', 'Wooecpay_Gateway_Credit_Installment', 'Wooecpay_Gateway_Webatm', 'Wooecpay_Gateway_Atm', 'Wooecpay_Gateway_Dca', 'Wooecpay_Gateway_Cvs', 'Wooecpay_Gateway_Barcode', 'Wooecpay_Gateway_Applepay', 'Wooecpay_Gateway_Twqr', 'Wooecpay_Gateway_Bnpl', 'Wooecpay_Gateway_Weixin', 'cod'];
+                    $allow_payments = [
+                        'Wooecpay_Gateway_Credit',
+                        'Wooecpay_Gateway_Credit_Installment',
+                        'Wooecpay_Gateway_Webatm',
+                        'Wooecpay_Gateway_Atm',
+                        'Wooecpay_Gateway_Dca',
+                        'Wooecpay_Gateway_Cvs',
+                        'Wooecpay_Gateway_Barcode',
+                        'Wooecpay_Gateway_Applepay',
+                        'Wooecpay_Gateway_Twqr',
+                        'Wooecpay_Gateway_Bnpl',
+                        'Wooecpay_Gateway_Weixin',
+                        'Wooecpay_Gateway_Jkopay',
+                        'Wooecpay_Gateway_Ipass',
+                        'cod'
+                    ];
 
                     foreach ($available_gateways as $key => $value) {
                         if (!in_array($key, $allow_payments)) {
