@@ -8,7 +8,7 @@ class Wooecpay_Logistic_Home_Post extends Wooecpay_Logistic_Base
         $this->instance_id          = absint($instance_id);
         $this->method_title         = __('Ecpay Home POST', 'ecpay-ecommerce-for-woocommerce');
         $this->title                = __('Ecpay Home POST', 'ecpay-ecommerce-for-woocommerce');
-        $this->method_description   = ''; // Description shown in admin
+        $this->method_description   = sprintf(__('※ POST shipping fee is calculated based on product weight. Please go to <a href="%s">Product Settings</a> to confirm each product\'s weight is greater than 0.', 'ecpay-ecommerce-for-woocommerce'), admin_url('edit.php?post_type=product')); // Description shown in admin
 
         $this->supports = [
             'shipping-zones',
@@ -23,19 +23,35 @@ class Wooecpay_Logistic_Home_Post extends Wooecpay_Logistic_Base
 
     }
 
-    // 重量超過2KG不顯示中華郵政
     public function is_available($package)
     {
         $is_available = true;
 
+        // 總重量超過20KG不顯示中華郵政
         $total_weight = WC()->cart->get_cart_contents_weight();
-
         if ($total_weight > 20) {
-           $is_available = false ; 
+            $is_available = false ;
+        }
+
+        $cart_items = WC()->cart->get_cart();
+        foreach ($cart_items as $cart_item) {
+            $product = $cart_item['data'];
+
+            // 虛擬商品跳過重量檢查
+            if ($product->is_virtual()) {
+                continue;
+            }
+
+            // 任一商品重量為0或負數不顯示中華郵政
+            $weight = $product->get_weight();
+            if ($weight <= 0) {
+                $is_available = false;
+                break;
+            }
         }
 
         return apply_filters('woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this);
-    }  
+    }
 
     // 購物車物流費用計算
     public function calculate_shipping($package = [])
@@ -84,7 +100,7 @@ class Wooecpay_Logistic_Home_Post extends Wooecpay_Logistic_Base
     {
 
         $total_weight = WC()->cart->get_cart_contents_weight();
-        
+
         $cost1 = $this->get_option('cost1');
         $cost2 = $this->get_option('cost2');
         $cost3 = $this->get_option('cost3');

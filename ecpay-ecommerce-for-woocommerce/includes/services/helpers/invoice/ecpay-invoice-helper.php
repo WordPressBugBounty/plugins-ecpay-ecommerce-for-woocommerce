@@ -26,7 +26,7 @@ class Wooecpay_Invoice_Helper {
     const INVOICE_CARRUER_TYPE_PAPER = '0';
 
     /**
-     * 載具類別代碼-雲端發票(中獎寄送紙本)
+     * 載具類別代碼-綠界會員載具
      */
     const INVOICE_CARRUER_TYPE_CLOUD = '1';
 
@@ -58,7 +58,7 @@ class Wooecpay_Invoice_Helper {
      */
     public $invoiceCarruerType = [
         self::INVOICE_CARRUER_TYPE_PAPER             => '索取紙本',
-        self::INVOICE_CARRUER_TYPE_CLOUD             => '雲端發票(中獎寄送紙本)',
+        self::INVOICE_CARRUER_TYPE_CLOUD             => '綠界會員載具',
         self::INVOICE_CARRUER_TYPE_NATURAL_PERSON_ID => '自然人憑證',
         self::INVOICE_CARRUER_TYPE_MOBILE_BARCODE    => '手機條碼',
     ];
@@ -269,7 +269,7 @@ class Wooecpay_Invoice_Helper {
 
                 $response = $this->check_customer_identifier($invoice_customer_identifier, $invoice_carruer_type, $invoice_customer_company);
 
-                
+
                 if ($response['code'] !== '1') $error_msg = $error_msg . $response['msg'] . '<br>';
                 break;
             case self::INVOICE_TYPE_DONATE:
@@ -547,7 +547,10 @@ class Wooecpay_Invoice_Helper {
 
                     $postService = $factory->create('PostWithAesJsonResponseService');
 
+                    // 所有訂單項目
                     $items = [];
+
+                    // 商品費用
                     foreach ($order->get_items() as $item) {
 
                         $item_price  = round(($item->get_total() + $item->get_total_tax()) / $item->get_quantity(), 4);
@@ -562,6 +565,19 @@ class Wooecpay_Invoice_Helper {
                         ];
                     }
 
+                    // 其他費用
+                    $fees = $order->get_items('fee');
+                    foreach ($fees as $feeId => $fee) {
+                        $items[]     = [
+                            'ItemName'    => mb_substr($fee->get_name(), 0, 100),
+                            'ItemCount'   => 1,
+                            'ItemWord'    => '批',
+                            'ItemPrice'   => $fee->get_total() + $fee->get_total_tax(),
+                            'ItemTaxType' => '1',
+                            'ItemAmount'  => $fee->get_total() + $fee->get_total_tax(),
+                        ];
+                    }
+
                     // 物流費用
                     $shipping_fee = $order->get_shipping_total() + $order->get_shipping_tax();
                     if ($shipping_fee != 0) {
@@ -573,6 +589,19 @@ class Wooecpay_Invoice_Helper {
                             'ItemPrice'   => $shipping_fee,
                             'ItemTaxType' => '1',
                             'ItemAmount'  => $shipping_fee,
+                        ];
+                    }
+
+                    // 退款
+                    $total_refunded = $order->get_total_refunded();
+                    if ($total_refunded > 0) {
+                        $items[] = [
+                            'ItemName'    => '退費',
+                            'ItemCount'   => 1,
+                            'ItemWord'    => '批',
+                            'ItemPrice'   => -$total_refunded,
+                            'ItemTaxType' => '1',
+                            'ItemAmount'  => -$total_refunded,
                         ];
                     }
 
@@ -598,7 +627,7 @@ class Wooecpay_Invoice_Helper {
                         'CarrierType'   => '',
                         'CarrierNum'    => '',
                         'TaxType'       => '1',
-                        'SalesAmount'   => intval(round($order->get_total(), 0)),
+                        'SalesAmount'   => intval(round($order->get_total(), 0)) - intval(round($order->get_total_refunded(), 0)),
                         'Items'         => $items,
                         'InvType'       => '07',
                     ];
@@ -716,23 +745,41 @@ class Wooecpay_Invoice_Helper {
 
                     $postService = $factory->create('PostWithAesJsonResponseService');
 
+                    // 所有訂單項目
                     $items = [];
 
+                    // 商品費用
                     foreach ($order->get_items() as $item) {
 
-                        $items[] = [
+                        $item_price  = round(($item->get_total() + $item->get_total_tax()) / $item->get_quantity(), 4);
+                        $item_amount = round($item_price * $item->get_quantity(), 2);
+                        $items[]     = [
                             'ItemName'    => mb_substr($item->get_name(), 0, 100),
                             'ItemCount'   => $item->get_quantity(),
                             'ItemWord'    => '批',
-                            'ItemPrice'   => round($item->get_total() / $item->get_quantity(), 4),
+                            'ItemPrice'   => $item_price,
                             'ItemTaxType' => '1',
-                            'ItemAmount'  => round($item->get_total(), 2),
+                            'ItemAmount'  => $item_amount,
+                        ];
+                    }
+
+                    // 其他費用
+                    $fees = $order->get_items('fee');
+                    foreach ($fees as $feeId => $fee) {
+                        $items[]     = [
+                            'ItemName'    => mb_substr($fee->get_name(), 0, 100),
+                            'ItemCount'   => 1,
+                            'ItemWord'    => '批',
+                            'ItemPrice'   => $fee->get_total() + $fee->get_total_tax(),
+                            'ItemTaxType' => '1',
+                            'ItemAmount'  => $fee->get_total() + $fee->get_total_tax(),
                         ];
                     }
 
                     // 物流費用
-                    $shipping_fee = $order->get_shipping_total();
+                    $shipping_fee = $order->get_shipping_total() + $order->get_shipping_tax();
                     if ($shipping_fee != 0) {
+
                         $items[] = [
                             'ItemName'    => __('Shipping fee', 'ecpay-ecommerce-for-woocommerce'),
                             'ItemCount'   => 1,
@@ -740,6 +787,19 @@ class Wooecpay_Invoice_Helper {
                             'ItemPrice'   => $shipping_fee,
                             'ItemTaxType' => '1',
                             'ItemAmount'  => $shipping_fee,
+                        ];
+                    }
+
+                    // 退款
+                    $total_refunded = $order->get_total_refunded();
+                    if ($total_refunded > 0) {
+                        $items[] = [
+                            'ItemName'    => '退費',
+                            'ItemCount'   => 1,
+                            'ItemWord'    => '批',
+                            'ItemPrice'   => -$total_refunded,
+                            'ItemTaxType' => '1',
+                            'ItemAmount'  => -$total_refunded,
                         ];
                     }
 
@@ -765,7 +825,7 @@ class Wooecpay_Invoice_Helper {
                         'CarrierType'   => '',
                         'CarrierNum'    => '',
                         'TaxType'       => '1',
-                        'SalesAmount'   => intval(round($order->get_total(), 0)),
+                        'SalesAmount'   => intval(round($order->get_total(), 0)) - intval(round($order->get_total_refunded(), 0)),
                         'Items'         => $items,
                         'InvType'       => '07',
 

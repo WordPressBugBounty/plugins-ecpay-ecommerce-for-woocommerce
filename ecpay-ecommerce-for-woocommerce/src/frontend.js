@@ -11,7 +11,7 @@ const ecpayInvoiceBlock = ({children, checkoutExtensionData}) => {
     const [carruerTypeValue, setCarruerTypeValue] = useState('0');
     const [carruerTypeOptions, setCarruerTypeOptions] = useState([
         {label: __('Paper Invoice', 'ecpay-ecommerce-for-woocommerce'), value: '0'},
-        {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
+        {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
         {label: __('Citizen Digital Certificate', 'ecpay-ecommerce-for-woocommerce'), value: '2'},
         {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '3'}
     ]);
@@ -36,7 +36,7 @@ const ecpayInvoiceBlock = ({children, checkoutExtensionData}) => {
             invoicePapper = InvoiceData.InvoicePapper;
             if (invoicePapper == 'disable') {
                 setCarruerTypeOptions([
-                    {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
+                    {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
                     {label: __('Citizen Digital Certificate', 'ecpay-ecommerce-for-woocommerce'), value: '2'},
                     {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '3'}
                 ]);
@@ -56,13 +56,13 @@ const ecpayInvoiceBlock = ({children, checkoutExtensionData}) => {
             if (value === 'c') {
                 var data = [
                     {label: __('Paper Invoice', 'ecpay-ecommerce-for-woocommerce'), value: '0'},
-                    {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
+                    {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
                     {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '3'}
                 ];
 
                 if (invoicePapper == 'disable') {
                     data = [
-                        {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
+                        {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
                         {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '3'}
                     ];
                 }
@@ -70,14 +70,14 @@ const ecpayInvoiceBlock = ({children, checkoutExtensionData}) => {
             } else if (value === 'p') {
                 var data = [
                     {label: __('Paper Invoice', 'ecpay-ecommerce-for-woocommerce'), value: '0'},
-                    {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
+                    {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
                     {label: __('Citizen Digital Certificate', 'ecpay-ecommerce-for-woocommerce'), value: '2'},
                     {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '3'}
                 ];
 
                 if (invoicePapper == 'disable') {
                     data = [
-                        {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
+                        {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
                         {label: __('Citizen Digital Certificate', 'ecpay-ecommerce-for-woocommerce'), value: '2'},
                         {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '3'}
                     ];

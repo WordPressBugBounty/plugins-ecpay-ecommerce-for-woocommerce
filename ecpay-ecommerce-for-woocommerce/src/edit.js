@@ -6,13 +6,13 @@ import {
 } from '@wordpress/block-editor';
 import {PanelBody} from '@wordpress/components';
 
-import {__} from '@wordpress/i18n'; 
+import {__} from '@wordpress/i18n';
 
 export const Edit = ({attributes, setAttributes}) => {
     const blockProps = useBlockProps();
     return (
         <div {...blockProps}>
-            <div className={'ecpay_invoice_fields'}> 
+            <div className={'ecpay_invoice_fields'}>
                 <SelectControl
                     label={__('Invoice Type', 'ecpay-ecommerce-for-woocommerce')}
                     value={''}
@@ -32,7 +32,7 @@ export const Edit = ({attributes, setAttributes}) => {
                     options={
                         [
                             {label: __('Paper Invoice', 'ecpay-ecommerce-for-woocommerce'), value: '1'},
-                            {label: __('Cloud Invoice (Paper sent if winning)', 'ecpay-ecommerce-for-woocommerce'), value: '2'},
+                            {label: __('ECPay Member Carrier', 'ecpay-ecommerce-for-woocommerce'), value: '2'},
                             {label: __('Citizen Digital Certificate', 'ecpay-ecommerce-for-woocommerce'), value: '3'},
                             {label: __('Mobile Barcode', 'ecpay-ecommerce-for-woocommerce'), value: '4'}
                         ]

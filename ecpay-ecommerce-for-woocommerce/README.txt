@@ -4,7 +4,7 @@ Tags: shop, cart, checkout, payment, ecpay
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 8.2
-Stable tag: 1.1.2603230
+Stable tag: 1.1.2606090
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,13 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 請來信詢問綠界技術服務信箱: techsupport@ecpay.com.tw
 
 == Changelog ==
+
+v1.1.2606090
+增加後台物流「中華郵政」運送方式描述
+增加前台物流「中華郵政」顯示限制，任一非虛擬商品重量為0或負數不顯示「中華郵政」
+移除前台金流「綠界ApplePay」僅限 iOS 系統才顯示的限制
+調整發票載具名稱「雲端發票(中獎寄送紙本)」為「綠界會員載具」
+修正開立發票金額未反映退款及其他費用，導致無法正確開立發票的問題
 
 v1.1.2603230
 增加街口支付付款方式

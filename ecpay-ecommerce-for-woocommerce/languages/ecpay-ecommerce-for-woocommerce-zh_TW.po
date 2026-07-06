@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ECPay Ecommerce for WooCommerce\n"
 "POT-Creation-Date: 2026-01-28 14:41+0800\n"
-"PO-Revision-Date: 2026-03-12 11:42+0800\n"
+"PO-Revision-Date: 2026-05-26 11:06+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -871,6 +871,10 @@ msgstr "綠界物流 宅配 宅配通"
 msgid "Ecpay Home POST"
 msgstr "綠界物流 宅配 中華郵政"
 
+#: includes/services/logistic/ecpay-logistic-home-post.php:11
+msgid "※ POST shipping fee is calculated based on product weight. Please go to <a href=\"%s\">Product Settings</a> to confirm each product's weight is greater than 0."
+msgstr "※ 中華郵政運費依商品重量計算，請先至<a href=\"%s\">商品設定</a>確認每項商品重量需大於 0。"
+
 #: includes/services/logistic/ecpay-logistic-home-tcat-outside.php:9
 #: includes/services/logistic/ecpay-logistic-home-tcat-outside.php:10
 msgid "Ecpay Home Tcat Outside"
@@ -1228,8 +1232,8 @@ msgstr "索取紙本"
 
 #: src/edit.js:35 src/frontend.js:14 src/frontend.js:39 src/frontend.js:59
 #: src/frontend.js:65 src/frontend.js:73 src/frontend.js:80
-msgid "Cloud Invoice (Paper sent if winning)"
-msgstr "雲端發票(中獎寄送紙本)"
+msgid "ECPay Member Carrier"
+msgstr "綠界會員載具"
 
 #: src/edit.js:36 src/frontend.js:15 src/frontend.js:40 src/frontend.js:74
 #: src/frontend.js:81
